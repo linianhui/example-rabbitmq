@@ -1,0 +1,10 @@
+@HOST = http://192.168.2.201:10080
+
+
+### 测试发送MQ-direct
+POST {{HOST}}/mq/direct
+Content-Type: application/json
+
+{
+  "name": "lnh"
+}
