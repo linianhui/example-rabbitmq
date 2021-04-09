@@ -1,0 +1,32 @@
+version: "3.3"
+
+networks:
+  network_default:
+    driver: bridge
+
+services:
+  rabbitmq.test:
+    build: ./rabbitmq/
+    ports:
+      - '15672:15672'
+    networks:
+      - network_default
+    volumes:
+      - volume_rabbitmq:/var/lib/rabbitmq
+
+  producer.test:
+    build: ./producer/
+    ports:
+      - '10080:80'
+    networks:
+      - network_default
+
+  consumer.test:
+    build: ./consumer/
+    ports:
+      - '10081:80'
+    networks:
+      - network_default
+
+volumes:
+  volume_rabbitmq:
