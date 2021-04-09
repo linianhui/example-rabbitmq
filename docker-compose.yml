@@ -16,6 +16,8 @@ services:
 
   producer.test:
     build: ./producer/
+    depends_on:
+      - rabbitmq.test
     ports:
       - '10080:80'
     networks:
@@ -23,10 +25,21 @@ services:
 
   consumer.test:
     build: ./consumer/
+    depends_on:
+      - rabbitmq.test
     ports:
       - '10081:80'
     networks:
       - network_default
+
+  tcpdump:
+    image: lnhcode/tool
+    depends_on:
+      - rabbitmq.test
+    entrypoint: ["tcpdump", "-w", "/data/rabbitmq-temp.pcap", "port", "5672"]
+    network_mode: "service:rabbitmq.test"
+    volumes:
+      - ./tcpdump:/data
 
 volumes:
   volume_rabbitmq:
