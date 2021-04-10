@@ -9,5 +9,13 @@ POST {{HOST}}/mq/direct
 Content-Type: application/json
 
 {
-  "name": "lnh"
+  "name": "direct"
+}
+
+### 测试发送MQ-direct
+POST {{HOST}}/mq/fanout
+Content-Type: application/json
+
+{
+  "name": "fanout"
 }
