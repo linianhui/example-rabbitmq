@@ -4,6 +4,9 @@
 ### 查看生产者和消费者日志记录
 GET {{HOST}}/log
 
+### 清除日志
+DELETE {{HOST}}/log
+
 ### 测试发送MQ-direct
 POST {{HOST}}/mq/direct
 Content-Type: application/json

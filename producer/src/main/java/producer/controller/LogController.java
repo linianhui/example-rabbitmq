@@ -1,6 +1,7 @@
 package producer.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +17,11 @@ public class LogController {
     @GetMapping()
     public Object listLog() {
         return log.listLog();
+    }
+
+    @DeleteMapping()
+    public void delete() {
+        log.clear();
     }
 
 }
