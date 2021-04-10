@@ -18,8 +18,9 @@ public class LogAdapter {
 
     public void log(String format, Object... args) {
         final String message = String.format(format, args);
+        final String hostName = System.getenv().get("HOSTNAME");
         log.info(message);
-        list.rightPush(LOG_KEY, OffsetDateTime.now().toString() + " " + message);
+        list.rightPush(LOG_KEY, hostName + " " + OffsetDateTime.now().toString() + " " + message);
     }
 
     public List<String> listLog() {
