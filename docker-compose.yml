@@ -48,13 +48,17 @@ services:
     entrypoint: [ "tcpdump", "-w", "/data/rabbitmq-temp.pcap", "port", "5672" ]
     network_mode: "service:rabbitmq.test"
     volumes:
-      - ./tcpdump:/data
+      - volume_tcpdump:/data
 
   redis.test:
     image: redis:6.2
     networks:
       network_fixed:
         ipv4_address: 172.20.0.5
+    volumes:
+      - volume_redis:/data
 
 volumes:
   volume_rabbitmq:
+  volume_tcpdump:
+  volume_redis:
