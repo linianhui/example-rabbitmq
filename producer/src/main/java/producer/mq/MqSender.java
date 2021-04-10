@@ -1,19 +1,22 @@
 package producer.mq;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import producer.LogAdapter;
 
-@Slf4j
 @Component
 public class MqSender {
 
     @Autowired
     AmqpTemplate amqpTemplate;
 
+    @Autowired
+    LogAdapter log;
+
     public void directSend(Object message) {
-        log.info("directSend testmq.direct {}", message);
+        log.log("direct.producer : directSend testmq.direct %s", message);
         amqpTemplate.convertAndSend("testmq.direct", message);
     }
+
 }

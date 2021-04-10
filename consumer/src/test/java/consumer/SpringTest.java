@@ -1,4 +1,4 @@
-package producer;
+package consumer;
 
 import java.time.Duration;
 import org.junit.jupiter.api.AfterEach;
