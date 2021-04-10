@@ -1,13 +1,14 @@
 package consumer;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class ConsumerApplicationTest {
+class ConsumerApplicationTest extends SpringTest {
 
     @Test
-    void contextLoads() {
+    void test_spring_start_up_should_ok() {
+        Assertions.assertTrue(true);
     }
 
 }

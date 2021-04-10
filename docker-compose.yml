@@ -23,6 +23,7 @@ services:
     build: ./producer/
     depends_on:
       - rabbitmq.test
+      - redis.test
     ports:
       - '10080:80'
     networks:
@@ -33,6 +34,7 @@ services:
     build: ./consumer/
     depends_on:
       - rabbitmq.test
+      - redis.test
     ports:
       - '10081:80'
     networks:
@@ -43,10 +45,20 @@ services:
     image: lnhcode/tool
     depends_on:
       - rabbitmq.test
-    entrypoint: ["tcpdump", "-w", "/data/rabbitmq-temp.pcap", "port", "5672"]
+    entrypoint: [ "tcpdump", "-w", "/data/rabbitmq-temp.pcap", "port", "5672" ]
     network_mode: "service:rabbitmq.test"
     volumes:
-      - ./tcpdump:/data
+      - volume_tcpdump:/data
+
+  redis.test:
+    image: redis:6.2
+    networks:
+      network_fixed:
+        ipv4_address: 172.20.0.5
+    volumes:
+      - volume_redis:/data
 
 volumes:
   volume_rabbitmq:
+  volume_tcpdump:
+  volume_redis:
