@@ -15,9 +15,15 @@ public class MqListener {
     @Autowired
     LogAdapter log;
 
-    @RabbitListener(queues = "testmq.direct")
+    @RabbitListener(queues = MqConfig.DIRECT_ROUTING_KEY)
     public void listenDirect(Object message) {
-        log.log("direct.consumer : listenDirect testmq.direct %s", message);
+        log.log("direct.consumer : listenDirect %s %s", MqConfig.DIRECT_ROUTING_KEY, message);
+        xxService.handlerXx(message);
+    }
+
+    @RabbitListener(queues = MqConfig.FANOUT_QUEUE)
+    public void listenFanout(Object message) {
+        log.log("fanout.consumer : listenFanout %s %s", MqConfig.FANOUT_QUEUE, message);
         xxService.handlerXx(message);
     }
 
