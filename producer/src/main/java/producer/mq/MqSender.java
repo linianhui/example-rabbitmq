@@ -1,9 +1,9 @@
 package producer.mq;
 
+import common.LogAdapter;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import producer.LogAdapter;
 
 @Component
 public class MqSender {

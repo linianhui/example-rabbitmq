@@ -1,6 +1,6 @@
 package consumer.mock;
 
-import consumer.LogAdapter;
+import common.LogAdapter;
 import org.mockito.Mockito;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
