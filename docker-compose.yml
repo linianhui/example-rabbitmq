@@ -37,6 +37,7 @@ services:
     depends_on:
       - rabbitmq.test
       - redis.test
+      - producer1.test
     networks:
       network_fixed:
         ipv4_address: 172.20.0.4
@@ -48,6 +49,7 @@ services:
     depends_on:
       - rabbitmq.test
       - redis.test
+      - producer1.test
     networks:
       network_fixed:
         ipv4_address: 172.20.0.44
