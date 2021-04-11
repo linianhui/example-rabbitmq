@@ -26,11 +26,10 @@ services:
       - redis.test
     ports:
       - '10080:80'
+      - '15005:5005'
     networks:
       network_fixed:
         ipv4_address: 172.20.0.3
-    ports:
-      - '15005:5005'
     environment:
       - HOSTNAME=producer1.test
 
