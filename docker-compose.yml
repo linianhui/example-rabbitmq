@@ -29,6 +29,8 @@ services:
     networks:
       network_fixed:
         ipv4_address: 172.20.0.3
+    ports:
+      - '15005:5005'
     environment:
       - HOSTNAME=producer1.test
 
@@ -41,6 +43,8 @@ services:
     networks:
       network_fixed:
         ipv4_address: 172.20.0.4
+    ports:
+      - '15006:5005'
     environment:
       - HOSTNAME=consumer1.test
 
@@ -53,6 +57,8 @@ services:
     networks:
       network_fixed:
         ipv4_address: 172.20.0.44
+    ports:
+      - '15007:5005'
     environment:
       - HOSTNAME=consumer2.test
 
