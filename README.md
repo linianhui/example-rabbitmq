@@ -8,6 +8,10 @@
 docker-compose up -d
 ```
 
+# RabbitAdmin
+
+<http://192.168.2.201:15672>
+
 # Test by api
 
 [api.http](api.http)

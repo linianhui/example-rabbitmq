@@ -20,4 +20,12 @@ public class MqController {
     ) {
         mqSender.directSend(message);
     }
+
+    @PostMapping(path = "fanout")
+    public void fanout(
+        @RequestBody Object message
+    ) {
+        mqSender.fanoutSend(message);
+    }
+
 }
