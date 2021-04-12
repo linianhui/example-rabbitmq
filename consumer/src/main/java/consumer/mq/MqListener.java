@@ -38,4 +38,34 @@ public class MqListener {
         bookService.handlerBookMessage(message);
     }
 
+    @RabbitListener(queues = MqConfig.QUEUE_ROUTING_INFO)
+    public void listenRoutingInfo(
+        @Payload BookMessage message,
+        @Headers Map headers
+    ) {
+        log.logReceive(
+            MqConfig.EXCHANGE_DIRECT_LOG,
+            headers.getOrDefault("amqp_receivedRoutingKey", "").toString(),
+            null,
+            message,
+            headers
+        );
+        bookService.handlerBookMessage(message);
+    }
+
+    @RabbitListener(queues = MqConfig.QUEUE_ROUTING_ERROR)
+    public void listenRoutingError(
+        @Payload BookMessage message,
+        @Headers Map headers
+    ) {
+        log.logReceive(
+            MqConfig.EXCHANGE_DIRECT_LOG,
+            headers.getOrDefault("amqp_receivedRoutingKey", "").toString(),
+            null,
+            message,
+            headers
+        );
+        bookService.handlerBookMessage(message);
+    }
+
 }

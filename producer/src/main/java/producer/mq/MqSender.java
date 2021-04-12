@@ -24,4 +24,9 @@ public class MqSender {
         amqpTemplate.convertAndSend(MqConfig.FANOUT_EXCHANGE, null, message);
     }
 
+    public void logRouting(String routingKey, Object message) {
+        log.logSend(MqConfig.EXCHANGE_DIRECT_LOG, routingKey, null, message);
+        amqpTemplate.convertAndSend(MqConfig.EXCHANGE_DIRECT_LOG, routingKey, message);
+    }
+
 }

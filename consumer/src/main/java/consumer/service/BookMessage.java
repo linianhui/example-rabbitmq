@@ -13,4 +13,5 @@ public class BookMessage {
 
     private String name;
 
+    private String uuid;
 }

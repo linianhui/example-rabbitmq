@@ -18,6 +18,9 @@ public class MqConfig {
 
     public static final String FANOUT_EXCHANGE = "testmq.fanout";
 
+    public static final String EXCHANGE_DIRECT_LOG = "example_exchange.direct_log";
+
+
     @Bean
     public MessageConverter messageConverter() {
         return new Jackson2JsonMessageConverter();
@@ -27,6 +30,14 @@ public class MqConfig {
     public Exchange fanoutExchange() {
         return ExchangeBuilder
             .fanoutExchange(FANOUT_EXCHANGE)
+            .durable(true)
+            .build();
+    }
+
+    @Bean
+    public Exchange directLogExchange() {
+        return ExchangeBuilder
+            .directExchange(EXCHANGE_DIRECT_LOG)
             .durable(true)
             .build();
     }
