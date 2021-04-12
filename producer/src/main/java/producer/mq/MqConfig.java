@@ -12,11 +12,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MqConfig {
 
-    public static final String JUST_FOR_INIT_AUTO_DECLARATION = "just_for_init_auto_declaration";
+    public static final String QUEUE_JUST_FOR_INIT_AUTO_DECLARATION = "example_queue.just_for_init_auto_declaration";
 
-    public static final String DIRECT_ROUTING_KEY = "testmq.direct";
+    public static final String QUEUE_DIRECT = "example_queue.direct";
 
-    public static final String FANOUT_EXCHANGE = "testmq.fanout";
+    public static final String EXCHANGE_FANOUT = "example_exchange.fanout";
 
     public static final String EXCHANGE_DIRECT_LOG = "example_exchange.direct_log";
 
@@ -27,15 +27,15 @@ public class MqConfig {
     }
 
     @Bean
-    public Exchange fanoutExchange() {
+    public Exchange exchangeFanout() {
         return ExchangeBuilder
-            .fanoutExchange(FANOUT_EXCHANGE)
+            .fanoutExchange(EXCHANGE_FANOUT)
             .durable(true)
             .build();
     }
 
     @Bean
-    public Exchange directLogExchange() {
+    public Exchange exchangeDirectLog() {
         return ExchangeBuilder
             .directExchange(EXCHANGE_DIRECT_LOG)
             .durable(true)
@@ -43,9 +43,9 @@ public class MqConfig {
     }
 
     @Bean
-    public Queue just_for_init_auto_declaration() {
+    public Queue queueJustForInitAutoDeclaration() {
         return QueueBuilder
-            .durable(JUST_FOR_INIT_AUTO_DECLARATION)
+            .durable(QUEUE_JUST_FOR_INIT_AUTO_DECLARATION)
             .build();
     }
 

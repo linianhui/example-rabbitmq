@@ -28,7 +28,7 @@ public class MqSenderTest extends SpringTest {
         Mockito
             .verify(amqpTemplate, Mockito.times(1))
             .convertAndSend(
-                ArgumentMatchers.eq("testmq.direct"),
+                ArgumentMatchers.eq(MqConfig.QUEUE_DIRECT),
                 ArgumentMatchers.same(message)
             );
     }

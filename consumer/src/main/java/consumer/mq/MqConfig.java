@@ -1,6 +1,5 @@
 package consumer.mq;
 
-import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Declarables;
 import org.springframework.amqp.core.DirectExchange;
@@ -16,11 +15,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MqConfig {
 
-    public static final String DIRECT_ROUTING_KEY = "testmq.direct";
+    public static final String QUEUE_DIRECT = "example_queue.direct";
 
-    public static final String FANOUT_EXCHANGE = "testmq.fanout";
+    public static final String EXCHANGE_FANOUT = "example_exchange.fanout";
 
-    public static final String FANOUT_QUEUE = "testmq.fanout.queue";
+    public static final String QUEUE_FANOUT = "example_queue.fanout";
 
     public static final String EXCHANGE_DIRECT_LOG = "example_exchange.direct_log";
 
@@ -34,25 +33,20 @@ public class MqConfig {
     }
 
     @Bean
-    public Queue directQueue() {
-        return QueueBuilder
-            .durable(DIRECT_ROUTING_KEY)
-            .build();
-    }
-
-
-    @Bean
-    public Queue fanoutQueue() {
-        return QueueBuilder
-            .durable(FANOUT_QUEUE)
-            .build();
+    public Declarables direct() {
+        return new Declarables(
+            QueueBuilder.durable(QUEUE_DIRECT).build()
+        );
     }
 
     @Bean
-    Binding bindingFanoutQueue() {
-        return BindingBuilder
-            .bind(fanoutQueue())
-            .to((FanoutExchange) ExchangeBuilder.fanoutExchange(FANOUT_EXCHANGE).build());
+    Declarables fanout() {
+        final Queue queueFanout = QueueBuilder.durable(QUEUE_FANOUT).build();
+        final FanoutExchange exchangeFanout = ExchangeBuilder.fanoutExchange(EXCHANGE_FANOUT).build();
+        return new Declarables(
+            queueFanout,
+            BindingBuilder.bind(queueFanout).to(exchangeFanout)
+        );
     }
 
     @Bean
