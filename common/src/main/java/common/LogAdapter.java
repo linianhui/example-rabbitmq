@@ -1,5 +1,7 @@
 package common;
 
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
@@ -17,12 +19,35 @@ public class LogAdapter {
     }
 
     public void log(String format, Object... args) {
-        final String message = String.format(format, args);
+        final String arg = String.format(format, args);
         final String hostName = System.getenv().get("HOSTNAME");
-        log.info(message);
-        redisTemplate
-            .opsForList()
-            .rightPush(LOG_KEY, hostName + " " + java.time.OffsetDateTime.now() + " " + message);
+        final OffsetDateTime time = OffsetDateTime.now(ZoneOffset.ofHours(8));
+        final String value = hostName + " " + time + " " + arg;
+        log.info(value);
+        redisTemplate.opsForList().rightPush(LOG_KEY, value);
+    }
+
+    public void logSend(
+        String exchange,
+        String routingKey,
+        String queue,
+        Object payload
+    ) {
+        log("send exchange=%s routingKey=%s queue=%s payload=%s",
+            exchange, routingKey, queue, payload
+        );
+    }
+
+    public void logReceive(
+        String exchange,
+        String routingKey,
+        String queue,
+        Object headers,
+        Object payload
+    ) {
+        log("receive exchange=%s routingKey=%s queue=%s payload=%s headers=%s",
+            exchange, routingKey, queue, headers, payload
+        );
     }
 
     public List<String> listLog() {
