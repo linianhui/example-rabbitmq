@@ -25,7 +25,7 @@ public class MqListener {
         @Payload BookMessage message,
         @Headers Map headers
     ) {
-        log.logReceive(null, null, MqConfig.DIRECT_ROUTING_KEY, headers, message);
+        log.logReceive(null, null, MqConfig.DIRECT_ROUTING_KEY, message, headers);
         bookService.handlerBookMessage(message);
     }
 
@@ -34,7 +34,7 @@ public class MqListener {
         @Payload BookMessage message,
         @Headers Map headers
     ) {
-        log.logReceive(MqConfig.FANOUT_EXCHANGE, null, MqConfig.DIRECT_ROUTING_KEY, headers, message);
+        log.logReceive(MqConfig.FANOUT_EXCHANGE, null, MqConfig.DIRECT_ROUTING_KEY, message, headers);
         bookService.handlerBookMessage(message);
     }
 
