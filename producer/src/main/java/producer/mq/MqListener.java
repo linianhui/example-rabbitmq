@@ -13,7 +13,7 @@ public class MqListener {
      * {@link org.springframework.amqp.rabbit.core.RabbitAdmin#initialize}
      * 自动声明exchange,queue,binding
      */
-    @RabbitListener(queues = MqConfig.JUST_FOR_INIT_AUTO_DECLARATION)
+    @RabbitListener(queues = MqConfig.QUEUE_JUST_FOR_INIT_AUTO_DECLARATION)
     public void listenJustForInitAutoDeclaration(Object message) {
     }
 

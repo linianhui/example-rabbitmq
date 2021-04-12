@@ -15,10 +15,18 @@ Content-Type: application/json
   "name": "direct"
 }
 
-### 测试发送MQ-direct
+### 测试发送MQ-fanout
 POST {{HOST}}/mq/fanout
 Content-Type: application/json
 
 {
   "name": "fanout"
+}
+
+### 测试发送MQ-routing
+POST {{HOST}}/mq/routing
+Content-Type: application/json
+
+{
+  "name": "routing"
 }

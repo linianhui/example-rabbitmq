@@ -15,13 +15,18 @@ public class MqSender {
     LogAdapter log;
 
     public void directSend(Object message) {
-        log.logSend(null, MqConfig.DIRECT_ROUTING_KEY, null, message);
-        amqpTemplate.convertAndSend(MqConfig.DIRECT_ROUTING_KEY, message);
+        log.logSend(null, MqConfig.QUEUE_DIRECT, null, message);
+        amqpTemplate.convertAndSend(MqConfig.QUEUE_DIRECT, message);
     }
 
     public void fanoutSend(Object message) {
-        log.logSend(null, MqConfig.DIRECT_ROUTING_KEY, null, message);
-        amqpTemplate.convertAndSend(MqConfig.FANOUT_EXCHANGE, null, message);
+        log.logSend(null, MqConfig.QUEUE_DIRECT, null, message);
+        amqpTemplate.convertAndSend(MqConfig.EXCHANGE_FANOUT, null, message);
+    }
+
+    public void logRouting(String routingKey, Object message) {
+        log.logSend(MqConfig.EXCHANGE_DIRECT_LOG, routingKey, null, message);
+        amqpTemplate.convertAndSend(MqConfig.EXCHANGE_DIRECT_LOG, routingKey, message);
     }
 
 }

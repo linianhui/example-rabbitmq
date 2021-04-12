@@ -20,21 +20,51 @@ public class MqListener {
     @Autowired
     LogAdapter log;
 
-    @RabbitListener(queues = MqConfig.DIRECT_ROUTING_KEY)
+    @RabbitListener(queues = MqConfig.QUEUE_DIRECT)
     public void listenDirect(
         @Payload BookMessage message,
         @Headers Map headers
     ) {
-        log.logReceive(null, null, MqConfig.DIRECT_ROUTING_KEY, headers, message);
+        log.logReceive(null, null, MqConfig.QUEUE_DIRECT, message, headers);
         bookService.handlerBookMessage(message);
     }
 
-    @RabbitListener(queues = MqConfig.FANOUT_QUEUE)
+    @RabbitListener(queues = MqConfig.QUEUE_FANOUT)
     public void listenFanout(
         @Payload BookMessage message,
         @Headers Map headers
     ) {
-        log.logReceive(MqConfig.FANOUT_EXCHANGE, null, MqConfig.DIRECT_ROUTING_KEY, headers, message);
+        log.logReceive(MqConfig.EXCHANGE_FANOUT, null, MqConfig.QUEUE_DIRECT, message, headers);
+        bookService.handlerBookMessage(message);
+    }
+
+    @RabbitListener(queues = MqConfig.QUEUE_ROUTING_INFO)
+    public void listenRoutingInfo(
+        @Payload BookMessage message,
+        @Headers Map headers
+    ) {
+        log.logReceive(
+            MqConfig.EXCHANGE_DIRECT_LOG,
+            headers.getOrDefault("amqp_receivedRoutingKey", "").toString(),
+            null,
+            message,
+            headers
+        );
+        bookService.handlerBookMessage(message);
+    }
+
+    @RabbitListener(queues = MqConfig.QUEUE_ROUTING_ERROR)
+    public void listenRoutingError(
+        @Payload BookMessage message,
+        @Headers Map headers
+    ) {
+        log.logReceive(
+            MqConfig.EXCHANGE_DIRECT_LOG,
+            headers.getOrDefault("amqp_receivedRoutingKey", "").toString(),
+            null,
+            message,
+            headers
+        );
         bookService.handlerBookMessage(message);
     }
 
