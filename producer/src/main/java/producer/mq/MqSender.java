@@ -15,12 +15,12 @@ public class MqSender {
     LogAdapter log;
 
     public void directSend(Object message) {
-        log.log("direct.producer : directSend %s %s", MqConfig.DIRECT_ROUTING_KEY, message);
+        log.logSend(null, MqConfig.DIRECT_ROUTING_KEY, null, message);
         amqpTemplate.convertAndSend(MqConfig.DIRECT_ROUTING_KEY, message);
     }
 
     public void fanoutSend(Object message) {
-        log.log("fanout.producer : fanoutSend %s %s", MqConfig.FANOUT_EXCHANGE, message);
+        log.logSend(null, MqConfig.DIRECT_ROUTING_KEY, null, message);
         amqpTemplate.convertAndSend(MqConfig.FANOUT_EXCHANGE, null, message);
     }
 
