@@ -33,7 +33,8 @@ public class LogAdapter {
         String queue,
         Object payload
     ) {
-        log("send exchange=%s routingKey=%s queue=%s payload=%s",
+        log(
+            "send exchange=%s routingKey=%s queue=%s payload=%s",
             exchange, routingKey, queue, payload
         );
     }
@@ -42,11 +43,12 @@ public class LogAdapter {
         String exchange,
         String routingKey,
         String queue,
-        Object headers,
-        Object payload
+        Object payload,
+        Object headers
     ) {
-        log("receive exchange=%s routingKey=%s queue=%s payload=%s headers=%s",
-            exchange, routingKey, queue, headers, payload
+        log(
+            "receive exchange=%s routingKey=%s queue=%s payload=%s headers=%s",
+            exchange, routingKey, queue, payload, headers
         );
     }
 
